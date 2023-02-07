@@ -50,8 +50,16 @@ class Address(BaseModel):
     country: str
     period: str
 
-#class married(enum):
+class Period(BaseModel):
+    start: datetime
+    end: datetime
 
+class Communication(BaseModel):
+    language: str
+    preferred: bool    
+class link(BaseModel): 
+        other: str
+        type: str
 
 class Patient(BaseModel):
     resource_type = Field("Patient", const=True)
@@ -67,9 +75,7 @@ class Patient(BaseModel):
         description=None, 
         element_property=True
     )  
-
-    #telecom: str
-
+    telecom: int
     name: HumanName
     gender: str = Field(
         ..., 
@@ -83,8 +89,31 @@ class Patient(BaseModel):
         element_property=True
     )  
     address: Address
-    maritalStatus: enum = ['married', 'divorced', 'single']
-
+    maritalStatus: str = Field(
+        ..., 
+        enum = ['married', 'divorced', 'single']
+    )
+    multipleBirthBoolean: bool
+    multipleBirthInteger: int
+    class contact(BaseModel):
+        relationship: str = Field(
+            ..., 
+            enum=('parent', 'sibling', 'spouse', 'other')
+        )
+        name: HumanName
+        telecom: int
+        address: Address
+        gender: str = Field(
+        ..., 
+        enum=['male', 'female', 'other', 'unknown']
+        )
+        Organization: Optional[str]
+        period: Period
+    comunication: Communication
+    generalPractitioner: str
+    managingOrganization: str
+    link: link
+    
 
 
 @app.post("/patients")

@@ -51,4 +51,46 @@
         "period": "string"
     },
     "resource_type": "Patient"
+}{
+    "identifier": 0,
+    "active": true,
+    "birthDate": "2023-02-07 16:39:27.116000+00:00",
+    "telecom": 0,
+    "name": {
+        "code": "usual",
+        "text": "string",
+        "family": "string",
+        "given": "string",
+        "prefix": "string",
+        "suffix": "string"
+    },
+    "gender": "female",
+    "deceasedBoolean": true,
+    "deceasedDateTime": "2023-02-07 16:39:27.116000+00:00",
+    "address": {
+        "use": "home",
+        "type": "physical",
+        "text": "string",
+        "line": "string",
+        "city": "string",
+        "district": "string",
+        "state": "string",
+        "postalcode": "string",
+        "country": "string",
+        "period": "string"
+    },
+    "maritalStatus": "married",
+    "multipleBirthBoolean": true,
+    "multipleBirthInteger": 0,
+    "comunication": {
+        "language": "string",
+        "preferred": true
+    },
+    "generalPractitioner": "string",
+    "managingOrganization": "string",
+    "link": {
+        "other": "string",
+        "type": "string"
+    },
+    "resource_type": "Patient"
 }
