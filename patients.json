@@ -1,72 +1,19 @@
 {
-    "identifier": 0,
+    "identifier": 101,
     "active": true,
-    "name": {
-        "code": "usual",
-        "text": "string",
-        "family": "string",
-        "given": "string",
-        "prefix": "string",
-        "suffix": "string"
-    },
-    "gender": "male",
-    "deceasedBoolean": true,
-    "address": {
-        "use": "home",
-        "type": "physical",
-        "text": "string",
-        "line": "string",
-        "city": "string",
-        "district": "string",
-        "state": "string",
-        "postalcode": "string",
-        "country": "string",
-        "period": "string"
-    },
-    "resource_type": "Patient"
-}{
-    "identifier": 0,
-    "active": true,
-    "birthDate": "2023-02-07 14:50:15.765000+00:00",
-    "name": {
-        "code": "usual",
-        "text": "string",
-        "family": "string",
-        "given": "string",
-        "prefix": "string",
-        "suffix": "string"
-    },
-    "gender": "male",
-    "deceasedBoolean": true,
-    "address": {
-        "use": "home",
-        "type": "physical",
-        "text": "string",
-        "line": "string",
-        "city": "string",
-        "district": "string",
-        "state": "string",
-        "postalcode": "string",
-        "country": "string",
-        "period": "string"
-    },
-    "resource_type": "Patient"
-}{
-    "identifier": 0,
-    "active": true,
-    "birthDate": "2023-02-07 16:39:27.116000+00:00",
+    "birthDate": "2023-02-07 17:01:31.150000+00:00",
     "telecom": 0,
     "name": {
         "code": "usual",
-        "text": "string",
+        "text": "JonahRileyHuggins",
         "family": "string",
         "given": "string",
         "prefix": "string",
         "suffix": "string"
     },
-    "gender": "female",
+    "gender": "male",
     "deceasedBoolean": true,
-    "deceasedDateTime": "2023-02-07 16:39:27.116000+00:00",
+    "deceasedDateTime": "2023-02-07 17:01:31.150000+00:00",
     "address": {
         "use": "home",
         "type": "physical",
@@ -77,11 +24,47 @@
         "state": "string",
         "postalcode": "string",
         "country": "string",
-        "period": "string"
+        "period": {
+            "start": "2023-02-07 17:01:31.150000+00:00",
+            "end": "2023-02-07 17:01:31.150000+00:00"
+        }
     },
     "maritalStatus": "married",
     "multipleBirthBoolean": true,
     "multipleBirthInteger": 0,
+    "contact": {
+        "relationship": "parent",
+        "name": {
+            "code": "usual",
+            "text": "string",
+            "family": "string",
+            "given": "string",
+            "prefix": "string",
+            "suffix": "string"
+        },
+        "telecom": 0,
+        "address": {
+            "use": "home",
+            "type": "physical",
+            "text": "string",
+            "line": "string",
+            "city": "string",
+            "district": "string",
+            "state": "string",
+            "postalcode": "string",
+            "country": "string",
+            "period": {
+                "start": "2023-02-07 17:01:31.150000+00:00",
+                "end": "2023-02-07 17:01:31.150000+00:00"
+            }
+        },
+        "gender": "male",
+        "Organization": "string",
+        "period": {
+            "start": "2023-02-07 17:01:31.150000+00:00",
+            "end": "2023-02-07 17:01:31.150000+00:00"
+        }
+    },
     "comunication": {
         "language": "string",
         "preferred": true

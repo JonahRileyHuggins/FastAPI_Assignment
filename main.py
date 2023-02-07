@@ -13,6 +13,9 @@ from pydantic.errors import MissingError, NoneIsNotAllowedError
 
 app = FastAPI()
 
+class Period(BaseModel):
+    start: datetime
+    end: datetime
 
 class HumanName(BaseModel):
     code: str = Field( 
@@ -30,7 +33,7 @@ class HumanName(BaseModel):
         None, 
         description="Given names (not always 'first'. Inlcudes middle names)"
     )
-    prefix: str = Field(
+    prefix: Optional[str] = Field(
         None, 
         description="Parts that come after the name"
     )
@@ -48,11 +51,22 @@ class Address(BaseModel):
     state: str
     postalcode: str
     country: str
-    period: str
+    period: Period
 
-class Period(BaseModel):
-    start: datetime
-    end: datetime
+class contact(BaseModel):
+        relationship: str = Field(
+            ..., 
+            enum=('parent', 'sibling', 'spouse', 'other')
+        )
+        name: HumanName
+        telecom: int
+        address: Address
+        gender: str = Field(
+        ..., 
+        enum=['male', 'female', 'other', 'unknown']
+        )
+        Organization: Optional[str]
+        period: Period
 
 class Communication(BaseModel):
     language: str
@@ -95,20 +109,7 @@ class Patient(BaseModel):
     )
     multipleBirthBoolean: bool
     multipleBirthInteger: int
-    class contact(BaseModel):
-        relationship: str = Field(
-            ..., 
-            enum=('parent', 'sibling', 'spouse', 'other')
-        )
-        name: HumanName
-        telecom: int
-        address: Address
-        gender: str = Field(
-        ..., 
-        enum=['male', 'female', 'other', 'unknown']
-        )
-        Organization: Optional[str]
-        period: Period
+    contact: contact
     comunication: Communication
     generalPractitioner: str
     managingOrganization: str
@@ -130,7 +131,7 @@ def create_patient(patient: Patient):
     return {"message": "Data written successfully to file"}
   
 @app.get("/patients")
-def read_items():
+def read_patient():
     try:
         with open("patients.json", "r") as infile:
             data = json.load(infile)
@@ -139,3 +140,24 @@ def read_items():
         return {"message": "patients.json file not found"}
     except json.decoder.JSONDecodeError:
         return {"message": "patients.json file is empty"}
+
+@app.put("/patients/{identifier}")
+def update_patient(identifier: int, patient: Patient):
+    try:
+        with open("patients.json", "r") as infile:
+            data = json.load(infile)
+            for i, p in enumerate(data):
+                if p['identifier'] == identifier:
+                    data[i] = patient.dict()
+                    break
+            else:
+                return {"message": f"Patient with identifier {identifier} not found"}
+    except FileNotFoundError:
+        return {"message": "patients.json file not found"}
+    except json.decoder.JSONDecodeError:
+        return {"message": "patients.json file is empty"}
+
+    with open("patients.json", "w") as outfile:
+        json.dump(data, outfile, indent=4)
+
+    return {"message": "Patient updated successfully"}
