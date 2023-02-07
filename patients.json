@@ -1,0 +1,54 @@
+{
+    "identifier": 0,
+    "active": true,
+    "name": {
+        "code": "usual",
+        "text": "string",
+        "family": "string",
+        "given": "string",
+        "prefix": "string",
+        "suffix": "string"
+    },
+    "gender": "male",
+    "deceasedBoolean": true,
+    "address": {
+        "use": "home",
+        "type": "physical",
+        "text": "string",
+        "line": "string",
+        "city": "string",
+        "district": "string",
+        "state": "string",
+        "postalcode": "string",
+        "country": "string",
+        "period": "string"
+    },
+    "resource_type": "Patient"
+}{
+    "identifier": 0,
+    "active": true,
+    "birthDate": "2023-02-07 14:50:15.765000+00:00",
+    "name": {
+        "code": "usual",
+        "text": "string",
+        "family": "string",
+        "given": "string",
+        "prefix": "string",
+        "suffix": "string"
+    },
+    "gender": "male",
+    "deceasedBoolean": true,
+    "address": {
+        "use": "home",
+        "type": "physical",
+        "text": "string",
+        "line": "string",
+        "city": "string",
+        "district": "string",
+        "state": "string",
+        "postalcode": "string",
+        "country": "string",
+        "period": "string"
+    },
+    "resource_type": "Patient"
+}
