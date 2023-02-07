@@ -1,21 +1,21 @@
-#!/usr/bin/env python3
-
 from typing import Union
 import json
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fhir.resources.patient import Patient
+from datetime import date
 
 app = FastAPI()
 
 class responseapi(BaseModel):
-    id: int
+    identifier: int
+    active: bool
     name: str
-    research_interests: str
-    hobbies: str
-    spirit_animal: str
+    telecom: str
+    gender: str
 
 @app.post("/items")
-def update_item(item: responseapi):
+def create_item(item: responseapi):
     # Create an instance of the responseapi class
     # with the data provided in the request body
     item_instance = responseapi(**item.dict())
