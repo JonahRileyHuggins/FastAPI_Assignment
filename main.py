@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, Optional, Pattern, Union, List
 import json
 from datetime import date, datetime
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import typing
 import enum
@@ -117,47 +117,33 @@ class Patient(BaseModel):
     
 
 
-@app.post("/patients")
-def create_patient(patient: Patient):
-    # Create an instance of the patientinfo class
-    # with the data provided in the request body
-    item_instance = Patient(**patient.dict())
-    # Serialize the instance to a JSON object
-    print(item_instance.dict())
-    json_object = json.dumps(item_instance.dict(), indent=4, default=str)
+@app.post("/create/patients/{patient_id}")
+def create_patient(patient: Patient, patient_id: int):
+    with open("patients.json", 'r') as infile:
+        patient_db = json.load(infile)
+    patient_db[patient_id] = patient.dict()
+
     # Write the JSON object to a file
-    with open("patients.json", "a") as outfile:
-        outfile.write(json_object)
-    return {"message": "Data written successfully to file"}
+    with open("patients.json", "a", encoding='utf-8') as outfile:
+        json.dump(patient_db, outfile, ensure_ascii=False, indent=4, default=str)
   
 @app.get("/patients")
 def read_patient():
     try:
         with open("patients.json", "r") as infile:
-            data = json.load(infile)
-            return data
+            patient_db = json.load(infile)
+            return patient_db
     except FileNotFoundError:
         return {"message": "patients.json file not found"}
     except json.decoder.JSONDecodeError:
         return {"message": "patients.json file is empty"}
 
-@app.put("/patients/{identifier}")
-def update_patient(identifier: int, patient: Patient):
-    try:
-        with open("patients.json", "r") as infile:
-            data = json.load(infile)
-            for i, p in enumerate(data):
-                if p['identifier'] == identifier:
-                    data[i] = patient.dict()
-                    break
-            else:
-                return {"message": f"Patient with identifier {identifier} not found"}
-    except FileNotFoundError:
-        return {"message": "patients.json file not found"}
-    except json.decoder.JSONDecodeError:
-        return {"message": "patients.json file is empty"}
-
+@app.put("/update/patients/{identifier}")
+def update_patient(identifier: str, patient: Patient):
+    with open("patients.json", "r") as infile:
+        patient_db = json.load(infile)
+        if identifier not in patient_db:
+            return "Patient not found"
+        patient_db[identifier] = patient.dict()
     with open("patients.json", "w") as outfile:
-        json.dump(data, outfile, indent=4)
-
-    return {"message": "Patient updated successfully"}
+        json.dump(patient_db, outfile, indent=4, default=str)
