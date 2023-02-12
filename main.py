@@ -123,8 +123,10 @@ def create_patient(patient: Patient, patient_id: int):
     patient_db[patient_id] = patient.dict()
 
     # Write the JSON object to a file
-    with open("patients.json", "a", encoding='utf-8') as outfile:
+    with open("patients.json", "w", encoding='utf-8') as outfile:
+        outfile.write('\n')
         json.dump(patient_db, outfile, ensure_ascii=False, indent=4, default=str)
+        
   
 
 @app.put("/update/patients/{identifier}")
@@ -135,6 +137,7 @@ def update_patient(identifier: str, patient: Patient):
             return "Patient not found"
         patient_db[identifier] = patient.dict()
     with open("patients.json", "w") as outfile:
+        outfile.write('\n')
         json.dump(patient_db, outfile, indent=4, default=str)
 
 
@@ -142,9 +145,12 @@ def update_patient(identifier: str, patient: Patient):
 def read_patient(patient_id: int = None):
     with open("patients.json", "r+") as infile:
         patient_db = json.load(infile)
-
-        #Message if identifier doesn't work:
         if patient_id is not None:
             return patient_db
-    
+
+    with open("patients.json", "w") as outfile:
+        outfile.write('\n')
+        json.dump(patient_db, outfile, indent=4, default=str)
+        #Message if identifier doesn't work:
+       
 
