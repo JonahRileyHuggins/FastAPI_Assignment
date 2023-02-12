@@ -114,12 +114,11 @@ class Patient(BaseModel):
     generalPractitioner: str
     managingOrganization: str
     link: link
-    
 
 
 @app.post("/create/patients/{patient_id}")
 def create_patient(patient: Patient, patient_id: int):
-    with open("patients.json", 'r') as infile:
+    with open("patients.json", 'r+') as infile:
         patient_db = json.load(infile)
     patient_db[patient_id] = patient.dict()
 
@@ -127,23 +126,25 @@ def create_patient(patient: Patient, patient_id: int):
     with open("patients.json", "a", encoding='utf-8') as outfile:
         json.dump(patient_db, outfile, ensure_ascii=False, indent=4, default=str)
   
-@app.get("/patients")
-def read_patient():
-    try:
-        with open("patients.json", "r") as infile:
-            patient_db = json.load(infile)
-            return patient_db
-    except FileNotFoundError:
-        return {"message": "patients.json file not found"}
-    except json.decoder.JSONDecodeError:
-        return {"message": "patients.json file is empty"}
 
 @app.put("/update/patients/{identifier}")
 def update_patient(identifier: str, patient: Patient):
-    with open("patients.json", "r") as infile:
+    with open("patients.json", "r+") as infile:
         patient_db = json.load(infile)
         if identifier not in patient_db:
             return "Patient not found"
         patient_db[identifier] = patient.dict()
     with open("patients.json", "w") as outfile:
         json.dump(patient_db, outfile, indent=4, default=str)
+
+
+@app.get("/patients")
+def read_patient(patient_id: int = None):
+    with open("patients.json", "r+") as infile:
+        patient_db = json.load(infile)
+
+        #Message if identifier doesn't work:
+        if patient_id is not None:
+            return patient_db
+    
+
