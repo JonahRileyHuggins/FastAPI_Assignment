@@ -1,120 +1,21 @@
 from typing import TYPE_CHECKING, Any, Dict, Optional, Pattern, Union, List
 import json
-from datetime import date, datetime
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import typing
+import requests
 import enum
-import re
-from pydantic import Field, root_validator
+from datetime import date, datetime
+from fastapi import FastAPI, HTTPException, Body
+from pydantic import BaseModel, Field, root_validator
 from pydantic.types import ConstrainedStr
 from pydantic.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.errors import MissingError, NoneIsNotAllowedError
+from Classes import *
 
 app = FastAPI()
 
-class Period(BaseModel):
-    start: datetime
-    end: datetime
-
-class HumanName(BaseModel):
-    code: str = Field( 
-        ...,
-        enum=['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'])
-    text: str = Field(
-        None,
-        description="text representation of the full name"
-    )
-    family: str = Field(
-        None, 
-        description="Family name (often called 'Surname')"
-    )
-    given: str = Field(
-        None, 
-        description="Given names (not always 'first'. Inlcudes middle names)"
-    )
-    prefix: Optional[str] = Field(
-        None, 
-        description="Parts that come after the name"
-    )
-    suffix: str = Field(
-        None, 
-        description= "Parts that come after the name"
-    )
-class Address(BaseModel):
-    use: str = Field(..., enum=['home', 'work', 'temp', 'old', 'billing'])
-    type: str = Field(..., enum=['physical', 'postal', 'both'])
-    text: str
-    line:str
-    city: str
-    district: str 
-    state: str
-    postalcode: str
-    country: str
-    period: Period
-
-class contact(BaseModel):
-        relationship: str = Field(
-            ..., 
-            enum=('parent', 'sibling', 'spouse', 'other')
-        )
-        name: HumanName
-        telecom: int
-        address: Address
-        gender: str = Field(
-        ..., 
-        enum=['male', 'female', 'other', 'unknown']
-        )
-        Organization: Optional[str]
-        period: Period
-
-class Communication(BaseModel):
-    language: str
-    preferred: bool    
-class link(BaseModel): 
-        other: str
-        type: str
-
-class Patient(BaseModel):
-    resource_type = Field("Patient", const=True)
-    identifier: int
-    active: bool = Field(
-        None, 
-        alias="active",
-        element_property=True    
-    )
-    birthDate: datetime = Field(
-        None, 
-        alias ="birthDate",
-        description=None, 
-        element_property=True
-    )  
-    telecom: int
-    name: HumanName
-    gender: str = Field(
-        ..., 
-        enum=['male', 'female', 'other', 'unknown']
-    )
-    deceasedBoolean: bool
-    deceasedDateTime: datetime = Field(
-        None, 
-        alias ="deceasedDateTime",
-        description=None, 
-        element_property=True
-    )  
-    address: Address
-    maritalStatus: str = Field(
-        ..., 
-        enum = ['married', 'divorced', 'single']
-    )
-    multipleBirthBoolean: bool
-    multipleBirthInteger: int
-    contact: contact
-    comunication: Communication
-    generalPractitioner: str
-    managingOrganization: str
-    link: link
-
+api_key = 'e1030be4-5277-4add-bd27-19e116e3ad08'
+base_url = 'https://uts-ws.nlm.nih.gov/rest/'
+endpoint = 'search/current'
+query_param = ['''FILL IN LATER''']
 
 @app.post("/create/patients/{patient_id}")
 def create_patient(patient: Patient, patient_id: int):
@@ -148,9 +49,18 @@ def read_patient(patient_id: int = None):
         if patient_id is not None:
             return patient_db
 
-    with open("patients.json", "w") as outfile:
-        outfile.write('\n')
-        json.dump(patient_db, outfile, indent=4, default=str)
+    #with open("patients.json", "w") as outfile:
+    #    outfile.write('\n')
+    #    json.dump(patient_db, outfile, indent=4, default=str)
         #Message if identifier doesn't work:
        
+@app.post("/create/condition/{patient_id}/{condition_id}")
+def create_condition(patient_id: int, condition_id: int, condition: Condition):
+    with open("conditions.json", 'r+') as infile:
+        condition_db = json.load(infile)
+    condition_db[condition_id] = condition.dict()
 
+
+    with open("conditions.json", "w") as outfile:
+        outfile.write('\n')
+        json.dump(condition_db, outfile, indent=4, default=str)
