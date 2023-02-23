@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING, Any, Dict, Optional, Pattern, Union, List
 import json
+import os
+from dotenv import load_dotenv
 import requests
 import enum
 from datetime import date, datetime
@@ -12,7 +14,7 @@ from Classes import *
 
 app = FastAPI()
 
-api_key = 'e1030be4-5277-4add-bd27-19e116e3ad08'
+api_key = os.getenv('UMLS_API_KEY')
 base_url = 'https://uts-ws.nlm.nih.gov/rest/'
 endpoint = 'search/current'
 query_param = ['''FILL IN LATER''']
