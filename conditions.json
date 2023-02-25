@@ -1,94 +1,44 @@
 
 {
-    "108": {
-        "resource_type": "Condition",
-        "identifier": "Identifier(use='string', system='string', value='string', assigner='string')",
-        "clinicalStatus": {
-            "clinical_status": "string"
-        },
-        "verificationstatus": {
-            "verification_status": "string"
-        },
-        "category": {
-            "category": "string"
-        },
-        "severity": {
-            "severity": "string"
-        },
-        "code": {
-            "code": "string",
-            "text": "Influenza due to other identified influenza virus with the same other identified influenza virus pneumonia"
-        },
-        "bodysite": {
-            "bodySite": "string"
-        },
-        "subject": {
-            "subject": "string"
-        },
-        "encounter": {
-            "encounter": "string"
-        },
-        "onsetdatetime": {
-            "onsetDateTime": "2023-02-25 06:03:01.164000+00:00"
-        },
-        "onsetage": {
-            "onsetage": "2023-02-25 06:03:01.164000+00:00"
-        },
-        "onsetperiod": {
-            "onsetperiod": "2023-02-25 06:03:01.164000+00:00"
-        },
-        "onsetrange": {
-            "onsetrange": "string"
-        },
-        "recordeddate": {
-            "recordeddate": "2023-02-25 06:03:01.164000+00:00"
-        },
-        "recorder": "string"
+    "resource_type": "Condition",
+    "identifier": "Identifier(use='string', system='string', value='string', assigner='string')",
+    "clinicalStatus": {
+        "clinical_status": "string"
+    },
+    "verificationstatus": {
+        "verification_status": "string"
+    },
+    "category": {
+        "category": "string"
+    },
+    "severity": {
+        "severity": "string"
+    },
+    "code": {
+        "coding": "J10.01",
+        "text": "Influenza due to other identified influenza virus with the same other identified influenza virus pneumonia"
+    },
+    "bodysite": {
+        "bodySite": "string"
     },
     "subject": 108,
-    "108": {
-        "resource_type": "Condition",
-        "identifier": "Identifier(use='string', system='string', value='string', assigner='string')",
-        "clinicalStatus": {
-            "clinical_status": "string"
-        },
-        "verificationstatus": {
-            "verification_status": "string"
-        },
-        "category": {
-            "category": "string"
-        },
-        "severity": {
-            "severity": "string"
-        },
-        "code": {
-            "coding": "string",
-            "text": "Influenza due to other identified influenza virus with the same other identified influenza virus pneumonia"
-        },
-        "bodysite": {
-            "bodySite": "string"
-        },
-        "subject": {
-            "subject": "string"
-        },
-        "encounter": {
-            "encounter": "string"
-        },
-        "onsetdatetime": {
-            "onsetDateTime": "2023-02-25 06:06:09.909000+00:00"
-        },
-        "onsetage": {
-            "onsetage": "2023-02-25 06:06:09.909000+00:00"
-        },
-        "onsetperiod": {
-            "onsetperiod": "2023-02-25 06:06:09.909000+00:00"
-        },
-        "onsetrange": {
-            "onsetrange": "string"
-        },
-        "recordeddate": {
-            "recordeddate": "2023-02-25 06:06:09.909000+00:00"
-        },
-        "recorder": "string"
-    }
+    "encounter": {
+        "encounter": "string"
+    },
+    "onsetdatetime": {
+        "onsetDateTime": "2023-02-25 16:18:27.482000+00:00"
+    },
+    "onsetage": {
+        "onsetage": "2023-02-25 16:18:27.482000+00:00"
+    },
+    "onsetperiod": {
+        "onsetperiod": "2023-02-25 16:18:27.482000+00:00"
+    },
+    "onsetrange": {
+        "onsetrange": "string"
+    },
+    "recordeddate": {
+        "recordeddate": "2023-02-25 16:18:27.482000+00:00"
+    },
+    "recorder": "string"
 }

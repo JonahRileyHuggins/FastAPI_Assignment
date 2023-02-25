@@ -66,7 +66,7 @@ def UMLSIntoConditon(patient_id: int, condition: Condition):
     with open('conditions.json', 'r') as infile:
         condition_data = json.load(infile)
 #Make an object that inherits from the Condition class in Classes.py    
-    condition_data[patient_id] = condition.dict()    
+    condition_data = condition.dict()    
 #Assign the subject attribute the value of the given patient id
     condition_data['subject'] = patient_id
 #Make a diagnosis object that obtains from the condition text section
@@ -74,7 +74,7 @@ def UMLSIntoConditon(patient_id: int, condition: Condition):
 #Make an object that uses the ICD10_Code funtion defined above to populate the text section of the condition 
     get_ICD10_Code = ICD10_Code(diagnosis)
 #Now populate the fhir_condition object with the correct ICD10 code! 
-    condition.code.coding = get_ICD10_Code
+    condition_data['code']['coding'] = get_ICD10_Code
 #Now dump to the conditions.json!!!
     with open("conditions.json", "w") as outfile:
         outfile.write('\n')
