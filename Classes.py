@@ -20,7 +20,7 @@ class Address:
     state: str
     postalcode: str
     country: str
-    period: Period
+    period = Period
 
 @dataclass
 class HumanName:
@@ -33,27 +33,21 @@ class HumanName:
 
 @dataclass
 class Identifier:
-    use: str = None
-    system: str = None
-    value: str = None
-    period: datetime = None
-    assigner: str = None
+    use: Optional[str] = None
+    system: Optional[str] = None  
+    value: Optional[str] = None
+    period = Period 
+    assigner: Optional[str] = None
 
 @dataclass
-class Contact(BaseModel):
-        relationship: str = Field(
-            ..., 
-            enum=('parent', 'sibling', 'spouse', 'other')
-        )
-        name: HumanName
-        telecom: int
-        address: Address
-        gender: str = Field(
-        ..., 
-        enum=['male', 'female', 'other', 'unknown']
-        )
-        Organization: Optional[str]
-        period: Period
+class Contact:
+        relationship: Optional[str] = None
+        name = HumanName
+        telecom: Optional[int] = None
+        address = Address
+        gender: Optional[str] = None
+        Organization: Optional[str] = None
+        period = Period
 
 @dataclass
 class Communication:
@@ -65,59 +59,46 @@ class link:
         other: str = None
 
 
-
-@dataclass
-class clinicalStatus:
+class clinicalStatus(BaseModel):
     #active | recurrence | relapes | inactive | remission | resolved
-    clinical_status: str = None
+    clinical_status: str 
 
-@dataclass
-class verificationStatus:
+class verificationStatus(BaseModel):
     # Unconfirmed | provisional | differential | confirmed | refuted | entered-in-error
     verification_status: str = None
 
-@dataclass
-class Category:
-    category: str = None
+class Category(BaseModel):
+    category: Optional[str] = None
 
-@dataclass
-class Severity:
-    severity: str = None
+class Severity(BaseModel):
+    severity: Optional[str] = None
 
-@dataclass
-class Code:
-    code: str = None
+class Code(BaseModel):
+    code: Optional[str] = None
+    text: Optional[str] = None
 
-@dataclass
-class BodySite:
+class BodySite(BaseModel):
     bodySite: str = None
 
-@dataclass
-class Subject:
+class Subject(BaseModel):
     subject: str = None
 
-@dataclass
-class Encounter:
+class Encounter(BaseModel):
     encounter: str = None
 
-@dataclass
-class OnsetDateTime:
+class OnsetDateTime(BaseModel):
     onsetDateTime: datetime = None
 
-@dataclass
-class OnsetAge: 
+class OnsetAge(BaseModel): 
     onsetage: datetime = None
 
-@dataclass
-class OnsetPeriod:
+class OnsetPeriod(BaseModel):
     onsetperiod: datetime = None
 
-@dataclass
-class OnsetRange:
+class OnsetRange(BaseModel):
     onsetrange: str
 
-@dataclass
-class RecordedDate:
+class RecordedDate(BaseModel):
     recordeddate: datetime = None
 
 
@@ -141,6 +122,7 @@ class Patient(BaseModel):
     managingOrganization: str
     link: link
 
+
 class Condition(BaseModel):
     resource_type: str = 'Condition'
     identifier: Identifier
@@ -157,7 +139,7 @@ class Condition(BaseModel):
     onsetperiod: OnsetPeriod
     onsetrange: OnsetRange
     recordeddate: RecordedDate
-    recorder: str
+    recorder: str = None
     
     
 

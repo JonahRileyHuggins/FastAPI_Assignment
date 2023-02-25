@@ -552,5 +552,25 @@
             "type": "string"
         },
         "resource_type": "Patient"
+    },
+    "108": {
+        "resource_type": "string",
+        "identifier": 0,
+        "active": true,
+        "birthDate": "2023-02-25 04:34:55.973000+00:00",
+        "telecom": 0,
+        "name": "HumanName(code='string', family='string', given='string', prefix='string', suffix='string')",
+        "gender": "string",
+        "deceasedBoolean": true,
+        "deceasedDateTime": "2023-02-25 04:34:55.973000+00:00",
+        "address": "Address(use='string', text='string', line='string', city='string', district='string', state='string', postalcode='string', country='string')",
+        "maritalStatus": "string",
+        "multipleBirthBoolean": true,
+        "multipleBirthInteger": 0,
+        "contact": "Contact(relationship='string', telecom=0, gender='string', Organization='string')",
+        "comunication": "Communication(language='string', preferred=True)",
+        "generalPractitioner": "string",
+        "managingOrganization": "string",
+        "link": "link(other='string')"
     }
 }

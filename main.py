@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING, Any, Dict, Optional, Pattern, Union, List
 import json
 import os
-from dotenv import load_dotenv
 import requests
 import enum
 from datetime import date, datetime
@@ -14,12 +13,14 @@ from Classes import *
 
 app = FastAPI()
 
-api_key = os.getenv('UMLS_API_KEY')
 base_url = 'https://uts-ws.nlm.nih.gov/rest/'
 endpoint = 'search/current'
-query_param = ['''FILL IN LATER''']
 
-@app.post("/create/patients/{patient_id}")
+with open('key.txt', 'r') as file:
+    api_key = file.read().replace('\n', '')
+
+
+@app.post("/patients/{patient_id}")
 def create_patient(patient: Patient, patient_id: int):
     with open("patients.json", 'r+') as infile:
         patient_db = json.load(infile)
@@ -32,7 +33,7 @@ def create_patient(patient: Patient, patient_id: int):
         
   
 
-@app.put("/update/patients/{identifier}")
+@app.put("/patients/{identifier}")
 def update_patient(identifier: str, patient: Patient):
     with open("patients.json", "r+") as infile:
         patient_db = json.load(infile)
@@ -51,18 +52,44 @@ def read_patient(patient_id: int = None):
         if patient_id is not None:
             return patient_db
 
-    #with open("patients.json", "w") as outfile:
-    #    outfile.write('\n')
-    #    json.dump(patient_db, outfile, indent=4, default=str)
-        #Message if identifier doesn't work:
-       
-@app.post("/create/condition/{patient_id}/{condition_id}")
-def create_condition(patient_id: int, condition_id: int, condition: Condition):
-    with open("conditions.json", 'r+') as infile:
-        condition_db = json.load(infile)
-    condition_db[condition_id] = condition.dict()
 
+#Make a function that makes a GET request to UMLS for the ui code associated with a diagnosis.
+def ICD10_Code(diagnosis: str):
+    query_param = f'?string={diagnosis}&sab=ICD10CM&returnIdType=code&apiKey={api_key}'
+    response = requests.get(base_url + endpoint + query_param)
+    result = response.json()['result']['results']
+    return result[0]['ui']
 
+#Make a POST function that updates the conditions.json file with the ui code of the patient's condition.
+@app.post("/condition/{patient_id}")
+def massageIntoConditon(patient_id: int, condtion: Condition):
+    with open('conditions.json', 'r') as infile:
+        condition_data = json.load(infile)
+    #Make an object that inherits from the Condition class in Classes.py    
+        fhir_condition = Condition()
+    #Assign the subject attribute the value of the given patient id
+        fhir_condition.subject = patient_id
+    #Make a diagnosis object that obtains from the condition text section
+        diagnosis = fhir_condition.code.text
+    #Make an object that uses the ICD10_Code funtion defined above to populate the text section of the condition 
+        get_ICD10_Code = ICD10_Code(diagnosis)
+    #Now populate the fhir_condition object with the correct ICD10 code! 
+        fhir_condition.code.code = get_ICD10_Code
+    #Now dump to the conditions.json!!!
     with open("conditions.json", "w") as outfile:
         outfile.write('\n')
-        json.dump(condition_db, outfile, indent=4, default=str)
+        json.dump(condition_data, outfile, indent=4, default=str)
+
+
+
+
+
+#@app.post("/condition/{patient_id}/{condition_id}")
+#def create_condition(patient_id: int, condition_id: str, condition: Condition):
+#    with open("conditions.json", 'r+') as infile:
+#        condition_db = json.load(infile)
+#    condition_db[condition_id] = condition.dict()
+#
+#    with open("conditions.json", "w") as outfile:
+#        outfile.write('\n')
+#        json.dump(condition_db, outfile, indent=4, default=str)
