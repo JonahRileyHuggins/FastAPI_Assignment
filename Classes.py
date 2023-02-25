@@ -78,7 +78,7 @@ class Severity(BaseModel):
     severity: Optional[str] = None
 
 class Code(BaseModel):
-    code: Optional[str] = None
+    coding: Optional[str] = None
     text: Optional[str] = None
 
 class BodySite(BaseModel):

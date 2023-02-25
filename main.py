@@ -70,13 +70,12 @@ def UMLSIntoConditon(patient_id: int, condition: Condition):
 #Assign the subject attribute the value of the given patient id
     condition_data['subject'] = patient_id
 #Make a diagnosis object that obtains from the condition text section
-    diagnosis = condition.code
+    diagnosis = condition.code.text
 #Make an object that uses the ICD10_Code funtion defined above to populate the text section of the condition 
     get_ICD10_Code = ICD10_Code(diagnosis)
 #Now populate the fhir_condition object with the correct ICD10 code! 
-    #fhir_condition.code.code = get_ICD10_Code
+    condition.code.coding = get_ICD10_Code
 #Now dump to the conditions.json!!!
-    
     with open("conditions.json", "w") as outfile:
         outfile.write('\n')
         json.dump(condition_data, outfile, indent=4, default=str)
@@ -85,12 +84,14 @@ def UMLSIntoConditon(patient_id: int, condition: Condition):
 
 
 
-#@app.post("/condition/{patient_id}/{condition_id}")
-#def create_condition(patient_id: int, condition_id: str, condition: Condition):
-#    with open("conditions.json", 'r+') as infile:
-#        condition_db = json.load(infile)
-#    condition_db[condition_id] = condition.dict()
-#
-#    with open("conditions.json", "w") as outfile:
-#        outfile.write('\n')
-#        json.dump(condition_db, outfile, indent=4, default=str)
+@app.put("/condition/{patient_id}/{condition_id}")
+def create_condition(patient_id: int, condition_id: str, condition: Condition):
+    with open("conditions.json", 'r+') as infile:
+        condition_db = json.load(infile)
+    condition_db[patient_id] = condition.dict()
+    condition_db['subject'] = patient_id
+    diagnosis = condition.code
+    get_ICD10_Code = ICD10_Code(diagnosis)
+    with open("conditions.json", "w") as outfile:
+        outfile.write('\n')
+        json.dump(condition_db, outfile, indent=4, default=str)
