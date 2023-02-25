@@ -62,20 +62,21 @@ def ICD10_Code(diagnosis: str):
 
 #Make a POST function that updates the conditions.json file with the ui code of the patient's condition.
 @app.post("/condition/{patient_id}")
-def massageIntoConditon(patient_id: int, condtion: Condition):
+def UMLSIntoConditon(patient_id: int, condition: Condition):
     with open('conditions.json', 'r') as infile:
         condition_data = json.load(infile)
-    #Make an object that inherits from the Condition class in Classes.py    
-        fhir_condition = Condition()
-    #Assign the subject attribute the value of the given patient id
-        fhir_condition.subject = patient_id
-    #Make a diagnosis object that obtains from the condition text section
-        diagnosis = fhir_condition.code.text
-    #Make an object that uses the ICD10_Code funtion defined above to populate the text section of the condition 
-        get_ICD10_Code = ICD10_Code(diagnosis)
-    #Now populate the fhir_condition object with the correct ICD10 code! 
-        fhir_condition.code.code = get_ICD10_Code
-    #Now dump to the conditions.json!!!
+#Make an object that inherits from the Condition class in Classes.py    
+    condition_data[patient_id] = condition.dict()    
+#Assign the subject attribute the value of the given patient id
+    condition_data['subject'] = patient_id
+#Make a diagnosis object that obtains from the condition text section
+    diagnosis = condition.code
+#Make an object that uses the ICD10_Code funtion defined above to populate the text section of the condition 
+    get_ICD10_Code = ICD10_Code(diagnosis)
+#Now populate the fhir_condition object with the correct ICD10 code! 
+    #fhir_condition.code.code = get_ICD10_Code
+#Now dump to the conditions.json!!!
+    
     with open("conditions.json", "w") as outfile:
         outfile.write('\n')
         json.dump(condition_data, outfile, indent=4, default=str)

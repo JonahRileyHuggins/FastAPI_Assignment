@@ -11,6 +11,10 @@ class Period:
     end: datetime
 
 @dataclass
+class CodeableConcept:
+	coding: str = None
+	text: str = None
+@dataclass
 class Address:
     use: str 
     text: str
