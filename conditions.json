@@ -1,7 +1,7 @@
 
 {
     "resource_type": "Condition",
-    "identifier": "Identifier(use='string', system='string', value='string', assigner='string')",
+    "identifier": "Identifier(use='string', system='string', value='109', assigner='string')",
     "clinicalStatus": {
         "clinical_status": "string"
     },
@@ -9,36 +9,41 @@
         "verification_status": "string"
     },
     "category": {
-        "category": "string"
+        "coding": "string",
+        "text": "string"
     },
     "severity": {
         "severity": "string"
     },
     "code": {
-        "coding": "J10.01",
-        "text": "Influenza due to other identified influenza virus with the same other identified influenza virus pneumonia"
+        "coding": "0000018958",
+        "text": "string"
     },
     "bodysite": {
-        "bodySite": "string"
+        "coding": "string",
+        "text": "string"
     },
     "subject": 108,
     "encounter": {
-        "encounter": "string"
+        "reference": "string",
+        "type": "string",
+        "identifier": "Identifier(use='string', system='string', value='string', assigner='string')",
+        "display": "string"
     },
     "onsetdatetime": {
-        "onsetDateTime": "2023-02-25 16:25:30.932000+00:00"
+        "onsetDateTime": "2023-03-09 15:16:32.572000+00:00"
     },
     "onsetage": {
-        "onsetage": "2023-02-25 16:25:30.932000+00:00"
+        "onsetage": "2023-03-09 15:16:32.572000+00:00"
     },
     "onsetperiod": {
-        "onsetperiod": "2023-02-25 16:25:30.932000+00:00"
+        "onsetperiod": "2023-03-09 15:16:32.572000+00:00"
     },
     "onsetrange": {
         "onsetrange": "string"
     },
     "recordeddate": {
-        "recordeddate": "2023-02-25 16:25:30.932000+00:00"
+        "recordeddate": "2023-03-09 15:16:32.572000+00:00"
     },
     "recorder": "string"
 }
