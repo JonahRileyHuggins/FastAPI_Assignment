@@ -120,7 +120,7 @@ class Value(BaseModel):
     valueRange: int
     valueRatio:  int
     valueSampledData: SampleData
-    valueTime: time
+    valueTime: datetime
     valueDateTime: datetime
     valuPeriod: Period
 
