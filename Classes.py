@@ -33,8 +33,7 @@ class HumanName(BaseModel):
     suffix: str = None 
 
 
-@dataclass
-class Identifier: 
+class Identifier(BaseModel): 
     use: Optional[str] = None
     system: Optional[str] = None  
     value: Optional[str] = None

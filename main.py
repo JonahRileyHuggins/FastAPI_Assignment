@@ -101,11 +101,11 @@ def update_condition(patient_id: int, condition_id: str, condition: Condition):
 
 #Make a function that retrieves the LOINC code from UMLS
 def LOINC_CODE(labValue: str):
-     endpoint = '/content/current'
+     endpoint = 'content/current'
      query_param = f'/source/LNC/{labValue}?apiKey={api_key}'
      response = requests.get(base_url + endpoint + query_param)
      if response.status_code != 200:
-         return "Error"
+         return None
      result = response.json()['result']['name']
      return result
 
@@ -124,7 +124,7 @@ def Create_Observation(patient_id: int, observation: Observation):
         json.dump(observation_data, outfile, indent=4, default=str)
 
 #Creating a PUT endpoint to update the Observation file
-@app.put("/condition/{patient_id}/{observation_id}")
+@app.put("/observation/{patient_id}/{observation_id}")
 def create_observation(patient_id: int, observation_id: str, observation: Observation):
     with open("observations.json", 'r+') as infile:
         observation_db = json.load(infile)
