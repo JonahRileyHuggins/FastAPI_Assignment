@@ -21,6 +21,12 @@ with open('key.txt', 'r') as file:
 #Creates a patient 
 @app.post("/patients/{patient_id}")
 def create_patient(patient: Patient, patient_id: int):
+    #Check if the patient json database already exists
+    if 'patients.json' not in os.listdir():
+        raise HTTPException(status_code=404, detail='Patient not found')
+        patients_JSON = {'{}'}
+        with open('patients.json', 'w') as outfile:
+            json.dump(patients_JSON, outfile)
     with open("patients.json", 'r+') as infile:
         patient_db = json.load(infile)
     patient_db[patient_id] = patient.dict()
