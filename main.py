@@ -150,3 +150,35 @@ def read_observation(patient_id: int):
         observation_db = json.load(infile)
         if patient_id is not None:
             return observation_db
+        
+
+#Creating a POST endpoint to lead to a Medication file
+@app.post("/medication/{patient_id}")
+def Create_Medication(patient_id: int, medication: MedicationRequest):
+    with open('medications.json', 'r') as infile:
+        medication_data = json.load(infile)
+    medication_data = medication.dict()    
+    medication_data['subject'] = patient_id
+    with open("medications.json", "w") as outfile:
+        outfile.write('\n')
+        json.dump(medication_data, outfile, indent=4, default=str)
+
+#Creating a PUT endpoint to update the Medication file
+@app.put("/medication/{patient_id}/{medication_id}")
+def create_medication(patient_id: int, medication_id: str, medication: MedicationRequest):
+    with open("medications.json", 'r+') as infile:
+        medication_db = json.load(infile)
+    medication_db[patient_id] = medication.dict()
+    medication_db['subject'] = patient_id
+    with open("medications.json", "w") as outfile:
+        outfile.write('\n')
+        json.dump(medication_db, outfile, indent=4, default=str)
+
+#Creating a GET endpoint to read the Medication file
+@app.get("/medications/{patient_id}")
+def read_medication(patient_id: int):
+    with open("medications.json", "r+") as infile:
+        medication_db = json.load(infile)
+        if patient_id is not None:
+            return medication_db
+        

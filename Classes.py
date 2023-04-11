@@ -4,8 +4,7 @@ from pydantic import Field, BaseModel
 from typing import TYPE_CHECKING, Any, Dict, Optional, Pattern, Union, List
 
 
-@dataclass
-class Period:
+class Period(BaseModel):
     start: datetime
     end: datetime
 
@@ -13,8 +12,7 @@ class CodeableConcept(BaseModel):
 	coding: str = None
 	text: str = None
         
-@dataclass
-class Address:
+class Address(BaseModel):
     use: str 
     text: str
     line:str
@@ -143,6 +141,19 @@ class Component(BaseModel):
     iterpretation: CodeableConcept
     referenceRange: ReferenceRange
 
+class dispenseRequest(BaseModel):
+    initialFill: int
+    dispenseInterval: int
+    validityPeriod: Period
+    numberOfRepeatsAllowed: int
+    quantity: int
+    expectedSupplyDuration: int
+
+class substitution(BaseModel):
+    allowed: bool
+    reason: CodeableConcept
+
+
 #Class for which the patient post function inherits
 class Patient(BaseModel):
     resource_type: str = None
@@ -211,3 +222,40 @@ class Observation(BaseModel):
      hasMember: Reference
      derivedFrom: Reference
      component: Component
+     
+
+#Class for Medications POST function inherits from
+class MedicationRequest(BaseModel):
+    resource_type: str = 'Medication'
+    identifier: Identifier
+    basedon: Reference
+    priorPresciption: Reference
+    groupIdentifier: Identifier
+    status: Code
+    statusReason: CodeableConcept
+    statusChanged: datetime
+    intent: Code
+    category: CodeableConcept
+    priority: Code
+    doNotPerform: bool
+    medication: CodeableConcept
+    subject: Reference
+    informationSource: Reference
+    encounter: Reference
+    supportingInformation: Reference
+    authoredOn: datetime
+    requester: Reference
+    reported: bool
+    performer: Reference
+    device: Reference
+    recorder: Reference
+    reason: CodeableConcept
+    courseOfTherapyType: CodeableConcept
+    insurance: Reference
+    note: Annotation
+    renderedDosageInstruction: str
+    effectiveDosePeriod: Period
+    dosageInstruction: str
+    dispenseRequest: dispenseRequest
+    substitution: substitution
+
