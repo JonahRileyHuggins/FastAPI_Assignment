@@ -109,7 +109,8 @@ def update_condition(patient_id: int, condition_id: str, condition: Condition):
 def LOINC_CODE(labValue: str):
      endpoint = 'content/current'
      query_param = f'/source/LNC/{labValue}?apiKey={api_key}'
-     response = requests.get(base_url + endpoint + query_param)
+     url = base_url + endpoint + query_param
+     response = requests.get(url)
      if response.status_code != 200:
          return None
      result = response.json()['result']['name']
@@ -152,6 +153,16 @@ def read_observation(patient_id: int):
             return observation_db
         
 
+
+#Make a function that retrieves the RxNorm code from UMLS
+def RxNorm_CODE(medication: str):
+    endpoint = 'search/current'
+    query_param = f'?string={medication}&sab=RXNORM&returnIdType=code&apiKey={api_key}'
+    url = base_url + endpoint + query_param
+    response = requests.get(url)
+    result = response.json()['result']['results']
+    return result[0]['ui']
+
 #Creating a POST endpoint to lead to a Medication file
 @app.post("/medication/{patient_id}")
 def Create_Medication(patient_id: int, medication: MedicationRequest):
@@ -159,6 +170,9 @@ def Create_Medication(patient_id: int, medication: MedicationRequest):
         medication_data = json.load(infile)
     medication_data = medication.dict()    
     medication_data['subject'] = patient_id
+    rxNormMedication = medication_data['medicationCodeableConcept']['text']
+    get_RxNormMedication = RxNorm_CODE(rxNormMedication)
+    medication_data['medicationCodeableConcept']['coding'] = get_RxNormMedication
     with open("medications.json", "w") as outfile:
         outfile.write('\n')
         json.dump(medication_data, outfile, indent=4, default=str)
