@@ -14,7 +14,7 @@ from Classes import *
 app = FastAPI()
 
 base_url = 'https://uts-ws.nlm.nih.gov/rest/'
-
+base_rxnorm_url = 'https://rxnav.nlm.nih.gov/REST/'
 with open('key.txt', 'r') as file:
     api_key = file.read().replace('\n', '')
 
@@ -156,12 +156,12 @@ def read_observation(patient_id: int):
 
 #Make a function that retrieves the RxNorm code from UMLS
 def RxNorm_CODE(medication: str):
-    endpoint = 'search/current'
-    query_param = f'?string={medication}&sab=RXNORM&returnIdType=code&apiKey={api_key}'
-    url = base_url + endpoint + query_param
+    endpoint = '/rxcui.json'
+    query_param = f'?name={medication}&search=1&apiKey={api_key}'
+    url = base_rxnorm_url + endpoint + query_param
     response = requests.get(url)
-    result = response.json()['result']['results']
-    return result[0]['ui']
+    result = response.json()['idGroup']['rxnormId']
+    return result[0]
 
 #Creating a POST endpoint to lead to a Medication file
 @app.post("/medication/{patient_id}")
