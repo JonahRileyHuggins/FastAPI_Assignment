@@ -14,7 +14,7 @@ from Classes import *
 app = FastAPI()
 
 base_url = 'https://uts-ws.nlm.nih.gov/rest/'
-base_rxnorm_url = 'https://rxnav.nlm.nih.gov/REST/'
+
 with open('key.txt', 'r') as file:
     api_key = file.read().replace('\n', '')
 
@@ -158,6 +158,7 @@ def read_observation(patient_id: int):
 def RxNorm_CODE(medication: str):
     endpoint = '/rxcui.json'
     query_param = f'?name={medication}&search=1&apiKey={api_key}'
+    base_rxnorm_url = 'https://rxnav.nlm.nih.gov/REST/'
     url = base_rxnorm_url + endpoint + query_param
     response = requests.get(url)
     result = response.json()['idGroup']['rxnormId']
