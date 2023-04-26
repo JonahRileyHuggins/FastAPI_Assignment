@@ -1,0 +1,255 @@
+
+{
+    "resource_type": "Encounter",
+    "encounterIdentifier": {
+        "uniqueID": "20230426131824"
+    },
+    "identifier": {
+        "use": "string",
+        "system": "string",
+        "value": "string",
+        "assigner": "string"
+    },
+    "status": {
+        "coding": "string",
+        "text": "string"
+    },
+    "class_": {
+        "coding": "string",
+        "text": "string"
+    },
+    "type": {
+        "coding": "string",
+        "text": "string"
+    },
+    "serviceType": {
+        "coding": "string",
+        "text": "string"
+    },
+    "subjectStatus": {
+        "coding": "string",
+        "text": "string"
+    },
+    "priority": {
+        "coding": "string",
+        "text": "string"
+    },
+    "subject": 101,
+    "episodeOfCare": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "basedOn": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "careTeam": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "partOf": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "serviceProvider": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "participant": {
+        "type": {
+            "coding": "string",
+            "text": "string"
+        },
+        "period": {
+            "start": "2023-04-26 17:18:21.134000+00:00",
+            "end": "2023-04-26 17:18:21.134000+00:00"
+        },
+        "actor": {
+            "reference": "string",
+            "type": "string",
+            "identifier": {
+                "use": "string",
+                "system": "string",
+                "value": "string",
+                "assigner": "string"
+            },
+            "display": "string"
+        }
+    },
+    "appointment": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "virtualService": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "actualPeriod": {
+        "start": "2023-04-26 17:18:21.134000+00:00",
+        "end": "2023-04-26 17:18:21.134000+00:00"
+    },
+    "plannedStartDateTime": "2023-04-26 17:18:21.134000+00:00",
+    "plannedEndDateTime": "2023-04-26 17:18:21.134000+00:00",
+    "period": {
+        "start": "2023-04-26 17:18:21.134000+00:00",
+        "end": "2023-04-26 17:18:21.134000+00:00"
+    },
+    "length": 0,
+    "reason": {
+        "coding": "string",
+        "text": "string"
+    },
+    "diagnosis": {
+        "condition": {
+            "reference": "string",
+            "type": "string",
+            "identifier": {
+                "use": "string",
+                "system": "string",
+                "value": "string",
+                "assigner": "string"
+            },
+            "display": "string"
+        },
+        "use": {
+            "coding": "string",
+            "text": "string"
+        }
+    },
+    "account": {
+        "reference": "string",
+        "type": "string",
+        "identifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "display": "string"
+    },
+    "dietPreference": {
+        "coding": "string",
+        "text": "string"
+    },
+    "specialArrangement": {
+        "coding": "string",
+        "text": "string"
+    },
+    "specialCourtesy": {
+        "coding": "string",
+        "text": "string"
+    },
+    "admissiion": {
+        "preAdmissionIdentifier": {
+            "use": "string",
+            "system": "string",
+            "value": "string",
+            "assigner": "string"
+        },
+        "origin": {
+            "reference": "string",
+            "type": "string",
+            "identifier": {
+                "use": "string",
+                "system": "string",
+                "value": "string",
+                "assigner": "string"
+            },
+            "display": "string"
+        },
+        "admitSource": {
+            "coding": "string",
+            "text": "string"
+        },
+        "reAdmission": {
+            "coding": "string",
+            "text": "string"
+        },
+        "destination": {
+            "reference": "string",
+            "type": "string",
+            "identifier": {
+                "use": "string",
+                "system": "string",
+                "value": "string",
+                "assigner": "string"
+            },
+            "display": "string"
+        },
+        "dischargeDisposition": {
+            "coding": "string",
+            "text": "string"
+        }
+    },
+    "location": {
+        "location": {
+            "reference": "string",
+            "type": "string",
+            "identifier": {
+                "use": "string",
+                "system": "string",
+                "value": "string",
+                "assigner": "string"
+            },
+            "display": "string"
+        },
+        "status": "string",
+        "physicalType": {
+            "coding": "string",
+            "text": "string"
+        },
+        "period": {
+            "start": "2023-04-26 17:18:21.134000+00:00",
+            "end": "2023-04-26 17:18:21.134000+00:00"
+        }
+    }
+}

@@ -153,6 +153,31 @@ class substitution(BaseModel):
     allowed: bool
     reason: CodeableConcept
 
+class Participant(BaseModel):
+    type: CodeableConcept
+    period: Period
+    actor: Reference
+
+class Diagnosis(BaseModel):
+    condition: Reference
+    use: CodeableConcept
+
+class Admission(BaseModel):
+    preAdmissionIdentifier: Identifier
+    origin: Reference
+    admitSource: CodeableConcept
+    reAdmission: CodeableConcept
+    destination: Reference
+    dischargeDisposition: CodeableConcept
+
+class Location(BaseModel):
+    location: Reference
+    status: str
+    physicalType: CodeableConcept
+    period: Period
+
+class EncounterID(BaseModel):
+    uniqueID: str
 
 #Class for which the patient post function inherits
 class Patient(BaseModel):
@@ -175,10 +200,10 @@ class Patient(BaseModel):
     managingOrganization: str
     link: link
 
-
 #Class for which the Condition POST function inherits from
 class Condition(BaseModel):
     resource_type: str = 'Condition'
+    encounterIdentifier: EncounterID
     identifier: Identifier
     clinicalStatus: clinicalStatus
     verificationstatus: verificationStatus
@@ -198,6 +223,8 @@ class Condition(BaseModel):
     
 #Class for which the Observation POST function inherits from
 class Observation(BaseModel):
+     resource_type: str = 'Observation'
+     encounterIdentifier: EncounterID
      identifier: Identifier
      basedon: Reference
      partOf: Reference
@@ -227,6 +254,7 @@ class Observation(BaseModel):
 #Class for Medications POST function inherits from
 class MedicationRequest(BaseModel):
     resource_type: str = 'Medication'
+    encounterIdentifier: EncounterID
     identifier: Identifier
     basedon: Reference
     priorPresciption: Reference
@@ -259,3 +287,37 @@ class MedicationRequest(BaseModel):
     dispenseRequest: dispenseRequest
     substitution: substitution
 
+#FHIR Encounter Class
+class Encounter(BaseModel):
+    resource_type: str = 'Encounter'
+    encounterIdentifier: EncounterID
+    identifier: Identifier
+    status: Code
+    class_: CodeableConcept
+    type: CodeableConcept
+    serviceType: CodeableConcept
+    subjectStatus: CodeableConcept
+    priority: CodeableConcept
+    subject: Reference
+    episodeOfCare: Reference
+    basedOn: Reference
+    careTeam: Reference
+    partOf: Reference
+    serviceProvider: Reference
+    participant: Participant
+    appointment: Reference
+    virtualService: Reference
+    actualPeriod: Period
+    plannedStartDateTime: datetime
+    plannedEndDateTime: datetime
+    period: Period
+    length: int
+    reason: CodeableConcept
+    diagnosis: Diagnosis
+    account: Reference
+    dietPreference: CodeableConcept
+    specialArrangement: CodeableConcept
+    specialCourtesy: CodeableConcept
+    admissiion: Admission
+    location: Location
+   
