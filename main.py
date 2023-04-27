@@ -110,7 +110,7 @@ def read_encounter(patient_id: int):
 def get_encounter_id(patient_id: int):
     with open('./databases/encounters.json', 'r') as infile:
         encounter_data = json.load(infile)
-    return encounter_data[patient_id]['encounterIdentifier']['uniqueID']
+    return encounter_data['encounterIdentifier']['uniqueID']
 
 #Make a function that makes a GET request to UMLS for the ui code associated with a diagnosis.
 def ICD10_Code(diagnosis: str):
